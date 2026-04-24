@@ -2,20 +2,19 @@ function Navbar() {
   return (
     <nav
       style={{
-        background: "#1e293b",
+        background: "#0f172a",
         color: "white",
-        padding: "15px 30px",
+        padding: "15px 25px",
         display: "flex",
         justifyContent: "space-between",
-        alignItems: "center",
-        fontFamily: "Arial"
+        alignItems: "center"
       }}
     >
-      <h2>CivicTrack</h2>
+      <h2 style={{ margin: 0 }}>CivicTrack</h2>
 
-      <div>
-        <span style={{ marginRight: "20px", cursor: "pointer" }}>Home</span>
-        <span style={{ cursor: "pointer" }}>Report</span>
+      <div style={{ display: "flex", gap: "20px" }}>
+        <span style={{ cursor: "pointer" }}>Home</span>
+        <span style={{ cursor: "pointer" }}>Report Issue</span>
       </div>
     </nav>
   );

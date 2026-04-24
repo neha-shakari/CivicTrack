@@ -1,50 +1,74 @@
+import { useState } from "react";
+
 function ReportIssue() {
+  const [form, setForm] = useState({
+    name: "",
+    type: "Pothole",
+    description: "",
+    location: ""
+  });
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const response = await fetch("http://localhost:8080/api/issues", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(form)
+    });
+
+    const data = await response.json();
+    console.log("Saved:", data);
+
+    alert("Issue submitted successfully!");
+  };
+
   return (
-    <div style={{ padding: "30px", fontFamily: "Arial" }}>
-      <h1>Report an Issue</h1>
+    <div style={{ padding: "30px" }}>
+      <h1>Report Issue</h1>
 
-      <input
-        placeholder="Your Name"
-        style={{ padding: "10px", width: "300px" }}
-      />
-      <br /><br />
+      <form onSubmit={handleSubmit}>
+        <input
+          name="name"
+          placeholder="Your Name"
+          onChange={handleChange}
+        />
+        <br /><br />
 
-      <select style={{ padding: "10px", width: "320px" }}>
-        <option>Pothole</option>
-        <option>Garbage</option>
-        <option>Broken Road</option>
-        <option>Streetlight</option>
-        <option>Drainage</option>
-      </select>
+        <select name="type" onChange={handleChange}>
+          <option>Pothole</option>
+          <option>Garbage</option>
+          <option>Broken Road</option>
+          <option>Streetlight</option>
+          <option>Drainage</option>
+        </select>
 
-      <br /><br />
+        <br /><br />
 
-      <textarea
-        placeholder="Describe the issue"
-        rows="4"
-        style={{ padding: "10px", width: "300px" }}
-      ></textarea>
+        <textarea
+          name="description"
+          placeholder="Describe issue"
+          onChange={handleChange}
+        />
 
-      <br /><br />
+        <br /><br />
 
-      <input
-        placeholder="Area / Location"
-        style={{ padding: "10px", width: "300px" }}
-      />
+        <input
+          name="location"
+          placeholder="Location"
+          onChange={handleChange}
+        />
 
-      <br /><br />
+        <br /><br />
 
-      <button
-        style={{
-          padding: "10px 20px",
-          background: "#2563eb",
-          color: "white",
-          border: "none",
-          cursor: "pointer"
-        }}
-      >
-        Submit
-      </button>
+        <button type="submit">Submit</button>
+      </form>
     </div>
   );
 }
